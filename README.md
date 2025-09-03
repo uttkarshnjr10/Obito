@@ -1,88 +1,102 @@
-Obito Voice Assistant 🤖
-Obito is a "Jarvis-like" voice assistant built with Python. It uses a modern client-server architecture, with Google's Gemini API powering its conversational AI. It listens for a wake word, performs tasks like opening websites and searching the web, and responds with a clear voice.
+# Obito Voice Assistant 🤖
 
-✨ Features
-Wake Word Detection: Activates on hearing "Obito".
+Obito is a "Jarvis-like" voice assistant built with Python, designed to provide a seamless and interactive voice-controlled experience. Powered by Google's Gemini API for conversational AI, Obito listens for a wake word, executes tasks like opening websites and searching the web, and responds with a clear, computer-generated voice.
 
-Client-Server Architecture: The AI "brain" (server) is separate from the user interface (client), allowing it to run on different machines.
+## ✨ Features
 
-Real-time Conversation: Powered by Google's Gemini for natural, intelligent responses.
+- **Wake Word Detection**: Activates when you say "Obito".
+- **Client-Server Architecture**: Separates the AI "brain" (server) from the user interface (client), enabling flexibility to run on different machines.
+- **Real-time Conversation**: Leverages Google's Gemini API for natural and intelligent responses.
+- **Task Execution**: Supports commands like opening websites, searching Google/YouTube, and telling the time.
+- **Voice Output**: Delivers responses using clear, computer-generated speech.
+- **Siri-like Interface**: Features a clean, circular GUI with real-time visual feedback.
 
-Task Execution: Can open websites, search Google/YouTube, and tell the time.
+## 🛠️ Setup & Installation
 
-Voice Output: Responds with a clear, computer-generated voice.
+Follow these steps to set up and run Obito on your local network.
 
-Siri-like Interface: A clean, circular GUI that provides visual feedback.
+### 1. Clone the Repository
 
-🛠️ Setup & Installation
-Follow these steps to get Obito running on your local network.
+Clone the repository to your local machine:
 
-1. Clone the Repository
-First, clone this repository to your computer:
-
-git clone [https://github.com/YOUR_USERNAME/obito-assistant.git](https://github.com/YOUR_USERNAME/obito-assistant.git)
+```bash
+git clone https://github.com/YOUR_USERNAME/obito-assistant.git
 cd obito-assistant
+```
 
-2. Create a Virtual Environment & Install Dependencies
-It is highly recommended to use a virtual environment to keep dependencies isolated.
+### 2. Create a Virtual Environment & Install Dependencies
 
+Using a virtual environment is highly recommended to keep dependencies isolated.
+
+```bash
 # Create and activate the virtual environment
 python -m venv venv
 .\venv\Scripts\activate  # On Windows
+# For macOS/Linux: source venv/bin/activate
 
-# Install all required libraries
+# Install required libraries
 pip install -r requirements.txt
+```
 
-3. Configure the Server
-The server needs your Google Gemini API key to function.
+### 3. Configure the Server
 
-Navigate to the server/ directory.
+The server requires a Google Gemini API key to function.
 
-Create a file named .env.
+1. Navigate to the `server/` directory.
+2. Create a `.env` file in the `server/` directory.
+3. Add your API key to the `.env` file as follows:
 
-Inside the .env file, add your API key like this:
-
+```plaintext
 GEMINI_API_KEY="YOUR_SECRET_GEMINI_API_KEY"
+```
 
-You can get a free API key from Google AI Studio.
+You can obtain a free API key from [Google AI Studio](https://aistudio.google.com/).
 
-4. Configure the Client
-The client needs to know the IP address of the computer running the server.
+### 4. Configure the Client
 
-Navigate to the client/ directory.
+The client needs the IP address of the machine running the server.
 
-You will find a file named config.json.
+1. Navigate to the `client/` directory.
+2. Open the `config.json` file.
+3. Update the `server_url` to the local IP address of the server machine (find it using `ipconfig` on Windows or `ifconfig`/`ip addr` on macOS/Linux):
 
-Open config.json and change the server_url to the local IP address of the server machine. (You can find this by running ipconfig on the server machine).
-
+```json
 {
-    "server_url": "[http://192.168.1.10:5000/api/command](http://192.168.1.10:5000/api/command)" 
+    "server_url": "http://192.168.1.10:5000/api/command"
 }
+```
 
-▶️ How to Run
-You need to run the server and client in two separate terminals.
+## ▶️ How to Run
 
-Start the Server:
-Open a terminal, navigate to the server directory, and run:
+Run the server and client in separate terminal windows.
 
+### Start the Server
+
+```bash
+cd server
 python server.py
+```
 
-Start the Client:
-Open a new terminal, navigate to the client directory, and run:
+### Start the Client
 
+```bash
+cd client
 python main.py
+```
 
-The Obito GUI will appear, and after it says "Listening...", you can say the wake word "Obito" to start giving it commands!
+Once the Obito GUI appears, it will display "Listening...". Say the wake word "Obito" to start issuing commands.
 
-💻 Technologies Used
-Python: Core programming language.
+## 💻 Technologies Used
 
-Flask: For the server-side API.
+- **Python**: Core programming language.
+- **Flask**: Powers the server-side API.
+- **PyQt5**: Provides the client-side graphical user interface.
+- **Google Gemini**: Enables natural language processing and AI responses.
+- **SpeechRecognition**: Handles voice command recognition.
+- **pyttsx3**: Converts text to speech for voice output.
 
-PyQt5: For the client-side graphical user interface.
+## 📝 Notes
 
-Google Gemini: For the natural language processing and AI responses.
-
-SpeechRecognition: For recognizing voice commands.
-
-pyttsx3: For text-to-speech voice output.
+- Ensure both the client and server machines are on the same network for proper communication.
+- The wake word "Obito" is case-sensitive and must be spoken clearly.
+- For troubleshooting, check the console output in both terminals for error messages.
