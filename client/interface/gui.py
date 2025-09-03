@@ -1,12 +1,12 @@
 # interface/gui.py
 
 import sys
+import threading
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel
 from PyQt5.QtCore import Qt, pyqtSignal, QObject
 from core.tts import speak
 
 class Communicate(QObject):
-    # Create a signal that can carry a string
     text_to_speak = pyqtSignal(str)
     update_label = pyqtSignal(str)
 
@@ -17,15 +17,10 @@ class ObitoGUI(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        # Set window properties
         self.setWindowTitle("Obito Assistant")
         self.setGeometry(100, 100, 400, 400)
-
-        # Make the window frameless and transparent
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-
-        # Main label for displaying text
         self.label = QLabel("Initializing...", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setStyleSheet("""
@@ -36,20 +31,19 @@ class ObitoGUI(QMainWindow):
             border-radius: 200px;
         """)
         self.label.setGeometry(0, 0, 400, 400)
-
-        # --- Connect Signals to Slots ---
         self.comm.update_label.connect(self.set_label_text)
-        self.comm.text_to_speak.connect(self.speak_text)
+        self.comm.text_to_speak.connect(self.speak_text_in_thread) # Changed this line
         
         self.show()
 
     def set_label_text(self, text):
-        """This function (slot) updates the GUI label."""
         self.label.setText(text)
 
-    def speak_text(self, text):
-        """This function (slot) calls the TTS engine."""
-        speak(text)
+    def speak_text_in_thread(self, text):
+        """This function starts the TTS in a new thread."""
+        thread = threading.Thread(target=speak, args=(text,))
+        thread.daemon = True
+        thread.start()
 
 # This is for testing the GUI independently
 if __name__ == '__main__':

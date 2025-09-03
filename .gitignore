@@ -1,12 +1,57 @@
+# -----------------------
 # Environment variables
-.env
+# -----------------------
+server/.env
 
-# Virtual Environment
+# -----------------------
+# Python virtual environment
+# -----------------------
 venv/
+
+# -----------------------
+# Python cache files
+# -----------------------
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
+# -----------------------
 # IDE and OS specific files
+# -----------------------
 .idea/
 .vscode/
 *.DS_Store
+Thumbs.db
+
+# -----------------------
+# PyInstaller build files
+# -----------------------
+client/build/
+client/dist/
+*.spec
+
+# -----------------------
+# Client configuration files
+# -----------------------
+# Should be configured by the user
+client/config.json
+
+# -----------------------
+# Logs
+# -----------------------
+*.log
+
+# -----------------------
+# Temporary files
+# -----------------------
+*.tmp
+*.bak
+*.swp
+
+# -----------------------
+# Node / frontend specific (if using npm)
+# -----------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
